@@ -8,7 +8,7 @@ use ambient_api::{
         rendering::color,
         transform::{lookat_center, translation},
     },
-    concepts::{make_perspective_infinite_reverse_camera, make_transformable},
+    concepts::{make_perspective_infinite_reverse_camera, make_transformable, make_sphere},
     entity::{AnimationAction, AnimationController},
     prelude::*,
     rand,
@@ -34,14 +34,21 @@ pub async fn main() -> EventResult {
 
     spawn_query(player()).bind(move |players| {
         for _ in players {
-            Entity::new()
-                .with_default(cube())
+            make_sphere()
                 .with_merge(make_transformable())
                 .with(translation(), rand::random())
                 .with(color(), c)
                 .spawn();
+            // Entity::new()
+            //     .with_default(cube())
+            //     .with_merge(make_transformable())
+            //     .with(translation(), rand::random())
+            //     .with(color(), c)
+            //     .spawn();
         }
     });
+
+    sleep(3.0).await;
 
     for _ in 0..100 {
         for x in c.as_mut() {
