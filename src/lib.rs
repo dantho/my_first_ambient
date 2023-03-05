@@ -39,7 +39,7 @@ pub async fn main() -> EventResult {
         }
     });
     
-    for _ in 0..1000 {
+    for _ in 0..100 {
         c.w = 0.0;
         while c.w < 0.5 {        
             for x in c.as_mut() {
