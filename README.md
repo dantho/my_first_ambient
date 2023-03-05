@@ -5,5 +5,7 @@ There's an [Ambient Book](https://ambientrun.github.io/Ambient/).
 
 If you're just learning about Entity Component System programming, I recommend this [blog post series by Adam Martin](https://t-machine.org/index.php/2007/11/11/entity-systems-are-the-future-of-mmog-development-part-2/).  It helped me undestand Ambient.  
 
-Git checkout the "exploding" tag to reproduce this fun:     
+I bragged about this little learning app [on Discord](https://discordapp.com/channels/894505972289134632/1081971986491785366).
+
+Use Git "exploding" tag if HEAD doesn't reproduce this fun:     
 [![Exploding Boxes!](https://user-images.githubusercontent.com/3302181/222970827-be83850b-64f8-4096-a403-9fe52f4d0c2e.png "Exploding Boxes!")](https://user-images.githubusercontent.com/3302181/222970343-3bed1a2e-45e1-4499-ad4b-be5d3216c172.mp4)
