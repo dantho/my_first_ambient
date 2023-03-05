@@ -40,14 +40,15 @@ pub async fn main() -> EventResult {
 
     sleep(3.0).await;
 
+    let cube_template = Entity::new()
+        .with_default(cube())
+        .with_merge(make_transformable())
+        .with(box_collider(), Vec3::ONE * 0.5)
+        .with(dynamic(), true)
+        .with_default(physics_controlled());
     for _ in 0..BLOCK_COUNT {
         let c = rcg();
-        Entity::new()
-            .with_default(cube())
-            .with_merge(make_transformable())
-            .with(box_collider(), Vec3::ONE * 0.5)
-            .with(dynamic(), true)
-            .with_default(physics_controlled())
+        cube_template.clone()
             .with(translation(), rand::random())
             .with(color(), c)
             .spawn();
@@ -61,10 +62,7 @@ pub async fn main() -> EventResult {
 
 /// Random Color Generator
 fn rcg() -> Vec4 {
-    vec4(
-        rand::random(),
-        rand::random(),
-        rand::random(),
-        rand::random::<f32>()*0.5+0.5
-    )
+        let mut c: Vec4 = rand::random();
+        c.w = c.w*0.5+0.5;
+        c
 }
