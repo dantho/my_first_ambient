@@ -1,17 +1,18 @@
 use ambient_api::{
+    prelude::*,
+    rand,
+    concepts::{
+        make_perspective_infinite_reverse_camera,
+        make_transformable, make_sphere
+    },
     components::core::{
         game_objects::player_camera,
         physics::{box_collider, dynamic, physics_controlled},
         player::player,
-        prefab::prefab_from_url,
-        primitives::{cube, quad},
+        primitives::{cube, sphere},
         rendering::color,
         transform::{lookat_center, translation},
     },
-    concepts::{make_perspective_infinite_reverse_camera, make_transformable, make_sphere},
-    entity::{AnimationAction, AnimationController},
-    prelude::*,
-    rand,
 };
 
 #[main]
@@ -25,7 +26,7 @@ pub async fn main() -> EventResult {
     }
     c.w = c.w.max(0.5);
 
-    Entity::new()
+    let _main_ball = Entity::new()
         .with_merge(make_perspective_infinite_reverse_camera())
         .with_default(player_camera())
         .with(translation(), Vec3::ONE * 5.)
@@ -58,7 +59,7 @@ pub async fn main() -> EventResult {
         Entity::new()
             .with_default(cube())
             .with_merge(make_transformable())
-            .with(box_collider(), Vec3::ONE * 2.)
+            .with(box_collider(), Vec3::ONE * 0.5)
             .with(dynamic(), true)
             .with_default(physics_controlled())
             .with(translation(), rand::random())
