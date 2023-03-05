@@ -9,7 +9,7 @@ use ambient_api::{
         game_objects::player_camera,
         physics::{box_collider, dynamic, physics_controlled},
         player::player,
-        primitives::{cube, sphere},
+        primitives::cube,
         rendering::color,
         transform::{lookat_center, translation},
     },
@@ -18,13 +18,8 @@ use ambient_api::{
 #[main]
 /// My First Ambient Program
 pub async fn main() -> EventResult {
-    let mut c = Vec4::new(0.0, 0.0, 0.0, 0.0);
-    let mut rng = rand::thread_rng();
-
-    for x in c.as_mut() {
-        *x = rng.gen();
-    }
-    c.w = c.w.max(0.5);
+    const BLOCK_COUNT: u16 = 100;
+    let c = rcg(); // random color generator
 
     let _main_ball = Entity::new()
         .with_merge(make_perspective_infinite_reverse_camera())
@@ -40,22 +35,13 @@ pub async fn main() -> EventResult {
                 .with(translation(), rand::random())
                 .with(color(), c)
                 .spawn();
-            // Entity::new()
-            //     .with_default(cube())
-            //     .with_merge(make_transformable())
-            //     .with(translation(), rand::random())
-            //     .with(color(), c)
-            //     .spawn();
         }
     });
 
     sleep(3.0).await;
 
-    for _ in 0..100 {
-        for x in c.as_mut() {
-            *x = rng.gen();
-        }
-        c.w = c.w.max(0.5);
+    for _ in 0..BLOCK_COUNT {
+        let c = rcg();
         Entity::new()
             .with_default(cube())
             .with_merge(make_transformable())
@@ -71,4 +57,14 @@ pub async fn main() -> EventResult {
         EventOk
     });
     EventOk
+}
+
+/// Random Color Generator
+fn rcg() -> Vec4 {
+    vec4(
+        rand::random(),
+        rand::random(),
+        rand::random(),
+        rand::random::<f32>()*0.5+0.5
+    )
 }
