@@ -12,6 +12,15 @@ use ambient_api::{
 #[main]
 /// My First Ambient Program
 pub async fn main() -> EventResult {
+    let mut c = Vec4::new(0.0,0.0,0.0,0.0);
+    let mut rng = rand::thread_rng();
+
+    while c.w < 0.5 {        
+        for x in c.as_mut() {
+            *x = rng.gen();
+        }
+    }
+    
     Entity::new()
         .with_merge(make_perspective_infinite_reverse_camera())
         .with_default(player_camera())
@@ -25,20 +34,29 @@ pub async fn main() -> EventResult {
                 .with_merge(make_transformable())
                 .with_default(cube())
                 .with(translation(), rand::random())
-                .with(color(), rand::random())
+                .with(color(), c)
                 .spawn();
         }
     });
-
-    Entity::new()
-        .with_merge(make_transformable())
-        .with_default(cube())
-        .with(box_collider(), Vec3::ONE * 2.)
-        .with(dynamic(), true)
-        .with_default(physics_controlled())
-        .spawn();
-
-    on(event::COLLISION, |c| {
+    
+    for _ in 0..1000 {
+        c.w = 0.0;
+        while c.w < 0.5 {        
+            for x in c.as_mut() {
+                *x = rng.gen();
+            }
+        }
+        Entity::new()
+            .with_merge(make_transformable())
+            .with_default(cube())
+            .with(box_collider(), Vec3::ONE * 2.)
+            .with(dynamic(), true)
+            .with_default(physics_controlled())
+            .with(translation(), rand::random())
+            .with(color(), c)
+            .spawn();
+    }
+    on(event::COLLISION, |_c| {
         println!("Collision");
         EventOk
     });
