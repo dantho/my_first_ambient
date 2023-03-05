@@ -15,12 +15,11 @@ pub async fn main() -> EventResult {
     let mut c = Vec4::new(0.0,0.0,0.0,0.0);
     let mut rng = rand::thread_rng();
 
-    while c.w < 0.5 {        
-        for x in c.as_mut() {
-            *x = rng.gen();
-        }
+    for x in c.as_mut() {
+        *x = rng.gen();
     }
-    
+    c.w = c.w.max(0.5);
+
     Entity::new()
         .with_merge(make_perspective_infinite_reverse_camera())
         .with_default(player_camera())
@@ -40,12 +39,10 @@ pub async fn main() -> EventResult {
     });
     
     for _ in 0..100 {
-        c.w = 0.0;
-        while c.w < 0.5 {        
-            for x in c.as_mut() {
-                *x = rng.gen();
-            }
+        for x in c.as_mut() {
+            *x = rng.gen();
         }
+        c.w = c.w.max(0.5);
         Entity::new()
             .with_merge(make_transformable())
             .with_default(cube())
@@ -60,10 +57,5 @@ pub async fn main() -> EventResult {
         println!("Collision");
         EventOk
     });
-
-    println!("Hello, Ambient!");
-    println!("Vec3::ZERO is '{:?}'", Vec3::ZERO);
-    println!("Vec3::ONE is '{:?}'", Vec3::ONE);
-    println!("Vec3::ONE * 5 is '{:?}'", Vec3::ONE * 5.);
     EventOk
 }
