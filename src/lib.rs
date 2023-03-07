@@ -22,7 +22,7 @@ pub async fn main() -> EventResult {
     const SPAWN_AREA: f32 = 2.0;
     let c = rcg(); // random color generator
 
-    sleep(10.0).await;
+    sleep(1.0).await;
 
     let _main_ball = Entity::new()
         .with_merge(make_perspective_infinite_reverse_camera())
