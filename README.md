@@ -9,3 +9,21 @@ I bragged about this little learning app [on Discord](https://discordapp.com/cha
 
 Use Git "exploding" tag if HEAD doesn't reproduce this fun:     
 [![Exploding Boxes!](https://user-images.githubusercontent.com/3302181/222970827-be83850b-64f8-4096-a403-9fe52f4d0c2e.png "Exploding Boxes!")](https://user-images.githubusercontent.com/3302181/222970343-3bed1a2e-45e1-4499-ad4b-be5d3216c172.mp4)
+
+
+### Other Libraries
+
+hecs owes a great deal to the free exchange of ideas in Rust's ECS library
+ecosystem. Particularly influential examples include:
+
+- [bevy], which continually pushes the envelope for performance and ergonomics
+  in the context of a batteries-included framework
+- [specs], which was key in popularizing ECS in Rust
+- [legion], which demonstrated archetypal memory layout and trait-less
+  components
+
+If hecs doesn't suit you, one of those might do the trick!
+
+[bevy]: https://github.com/bevyengine/bevy
+[specs]: https://github.com/amethyst/specs
+[legion]: https://github.com/TomGillen/legion
